@@ -20,10 +20,30 @@ function UserProfile() {
     //     return <p className={classes.profile}>Loading...</p>;
     // }
 
+    function changePasswordHandler(passwordData) {
+        const oldPassword = passwordData.oldPassword;
+        const newPassword = passwordData.newPassword;
+
+        const response = fetch("/api/user/change-password", {
+            method: "PATCH",
+            body: JSON.stringify({
+                oldPassword,
+                newPassword,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const data = response.json();
+
+        console.log(data);
+    }
+
     return (
         <section className={classes.profile}>
             <h1>Your User Profile</h1>
-            <ProfileForm />
+            <ProfileForm onChangePassword={changePasswordHandler} />
         </section>
     );
 }
